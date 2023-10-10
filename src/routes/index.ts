@@ -10,14 +10,13 @@ export const router = (app: Express) => {
     res.status(200).send("Health check OK.")
   })
 
-  app.get('/countries/:countryName', async (req: Request, res: Response) => {
-    const { countryName } = req.params;
-
+  app.get('/countries/', async (req: Request, res: Response) => {
     try {
-      const countryData = await searchCountry(countryName);
+      const countryData = await searchCountry();
       res.status(200).json(countryData);
     } catch (error) {
-      res.status(500).json({ error: 'Erro ao buscar dados do país' });
+      console.error("Erro ao buscar países, tente novamente.")
+      res.status(500).json({ error: 'Erro ao buscar dados do países' });
     }
   })
 }
